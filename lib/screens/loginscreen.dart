@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:get/get.dart';
+import 'package:login_test/models/user.dart';
+
+import 'package:login_test/screens/homescreen.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import '../controllers/logincontroller.dart';
 
 class LoginScreen extends StatelessWidget {
+  final LoginController loginController = Get.put(LoginController());
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    String ePosta;
-    String sifre;
+    var ePosta = '';
+    var sifre = '';
+
     return Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
@@ -37,8 +44,8 @@ class LoginScreen extends StatelessWidget {
                   validator: (val) => val!.isEmpty || !val.contains("@")
                       ? "Lütfen doğru e mail giriniz"
                       : null,
-                  onSaved: (value) {
-                    ePosta = value!;
+                  onChanged: (value) {
+                    ePosta = value;
                   },
                   controller: nameController,
                   decoration: const InputDecoration(
@@ -54,8 +61,8 @@ class LoginScreen extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (val) =>
                     val!.isEmpty ? "Lütfen şifre giriniz" : null,
-                onSaved: (value) {
-                  sifre = value!;
+                onChanged: (value) {
+                  sifre = value;
                 },
                 obscureText: true,
                 controller: passwordController,
@@ -78,9 +85,31 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
                   child: const Text('Giriş Yap'),
-                  onPressed: () {
-                    print('E posta : ' + nameController.text);
-                    print(passwordController.text);
+                  onPressed: () async {
+                    if (sifre == '') {
+                      Alert(
+                        context: context,
+                        title: "Hatalı Giriş",
+                        desc: "Lütfen e posta ve şifrenizi doğru giriniz",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              "Geri Dön",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () {
+                              Get.back();
+                            },
+                            width: 120,
+                          )
+                        ],
+                      ).show();
+                    } else {
+                      Get.to(const HomeScreen());
+                      ePosta = await loginController.UserFunc(ePosta);
+                      sifre = await loginController.PasswordFunc(sifre);
+                    }
                   },
                 )),
             Row(
