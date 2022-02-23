@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_test/models/user.dart';
 
-import 'package:login_test/screens/homescreen.dart';
+import 'package:login_test/models/user.dart';
+import 'package:login_test/screens/denemescreen.dart';
+
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../controllers/logincontroller.dart';
 
@@ -106,7 +107,7 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ).show();
                     } else {
-                      Get.to(const HomeScreen());
+                      Get.to(Deneme());
                       ePosta = await loginController.UserFunc(ePosta);
                       sifre = await loginController.PasswordFunc(sifre);
                     }
