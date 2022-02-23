@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../widgets/foodwidget.dart';
 
-class Deneme extends StatelessWidget {
-  Deneme({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  HomeScreen({Key? key}) : super(key: key);
   List<PageData> pageData = [
     PageData(
         'Baklava',

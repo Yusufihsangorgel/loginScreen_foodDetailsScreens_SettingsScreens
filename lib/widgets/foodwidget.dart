@@ -2,6 +2,7 @@ import 'package:animated_icon/animate_icon.dart';
 import 'package:animated_icon/animate_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_test/settings/settingscreen.dart';
 
 import '../controllers/logincontroller.dart';
 
@@ -103,6 +104,17 @@ class Page extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text("${loginController.myUser.value}"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Get.to(SettingsScreen());
+            },
+          )
+        ],
       ),
       body: Container(
         margin: EdgeInsets.all(16),
